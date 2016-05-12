@@ -13,4 +13,7 @@
 .idea/
 *.iml
 *.iws
-/out/
+out/
+
+# Maven
+target/
