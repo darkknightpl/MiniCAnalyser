@@ -31,10 +31,10 @@ public class ScannerTest {
             for(int testCurrentCharNumber = 0; testCurrentCharNumber < testCurrentLineLength; ++testCurrentCharNumber) {
                 assertTrue("Char numbers are the same", testCurrentCharNumber == scanner.getCurrentCharNumber());
                 char testChar = testProgramLines[testCurrentLineNumber].charAt(testCurrentCharNumber);
-                assertTrue("Chars at the same position are equals", testChar == scanner.getNextChar());
+                assertTrue("Chars at the same position are equals", testChar == scanner.getInputChar());
             }
         }
-        assertFalse("After reading last char there is no more characters", scanner.hasNextChar());
+        assertFalse("After reading last char there is no more characters", scanner.hasInputChar());
     }
 
 }

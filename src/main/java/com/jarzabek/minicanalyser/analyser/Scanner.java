@@ -21,10 +21,14 @@ class Scanner {
         return lines != null;
     }
 
-    char getNextChar() {
-        char currentChar = lines[currentLineNumber].charAt(currentCharNumber);
+    char getInputChar() {
+        char currentInputChar = lines[currentLineNumber].charAt(currentCharNumber);
         updatePositionCounters();
-        return currentChar;
+        return currentInputChar;
+    }
+
+    char checkInputChar() {
+        return lines[currentLineNumber].charAt(currentCharNumber);
     }
 
     private void updatePositionCounters() {
@@ -35,7 +39,7 @@ class Scanner {
         }
     }
 
-    boolean hasNextChar() {
+    boolean hasInputChar() {
         return currentLineNumber < lines.length;
     }
 
