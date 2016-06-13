@@ -15,6 +15,12 @@ class Scanner {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        resetPositionCounters();
+    }
+
+    private void resetPositionCounters() {
+        currentLineNumber = 0;
+        currentCharNumber = 0;
     }
 
     boolean isFileLoaded() {
@@ -22,12 +28,14 @@ class Scanner {
     }
 
     char getInputChar() {
+        skipEmptyLines();
         char currentInputChar = lines[currentLineNumber].charAt(currentCharNumber);
         updatePositionCounters();
         return currentInputChar;
     }
 
     char checkInputChar() {
+        skipEmptyLines();
         return lines[currentLineNumber].charAt(currentCharNumber);
     }
 
@@ -37,6 +45,11 @@ class Scanner {
             currentCharNumber = 0;
             currentLineNumber++;
         }
+    }
+
+    private void skipEmptyLines() {
+        while(lines[currentLineNumber].length() == 0)
+            currentLineNumber++;
     }
 
     boolean hasInputChar() {

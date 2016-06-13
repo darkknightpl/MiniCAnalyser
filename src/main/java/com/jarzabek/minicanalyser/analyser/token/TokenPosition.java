@@ -13,4 +13,8 @@ public class TokenPosition {
     public String toString() {
         return "[" + lineNumber + "," + charNumber + "]";
     }
+
+    public String getOneBasedIndexingPosition() {
+        return "[" + (lineNumber + 1) + "," + (charNumber + 1) + "]";
+    }
 }
