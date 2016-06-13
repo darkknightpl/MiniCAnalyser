@@ -4,12 +4,15 @@ import com.jarzabek.minicanalyser.analyser.exception.UnexpectedCharException;
 import com.jarzabek.minicanalyser.analyser.token.Token;
 import com.jarzabek.minicanalyser.analyser.token.TokenCategorizer;
 import com.jarzabek.minicanalyser.analyser.token.TokenPosition;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 
 class Lexer {
     private Scanner scanner;
     private StringBuffer tokenBuffer = new StringBuffer();
     private TokenCategorizer tokenCategorizer = new TokenCategorizer();
+    private ArrayList<Token> tokenList = new ArrayList<>();
     private static final HashSet<Character> splitterCharacters = new HashSet<>();
     private static final HashSet<String> twoSignTokens = new HashSet<>();
 
@@ -22,7 +25,7 @@ class Lexer {
         splitterCharacters.add('>'); splitterCharacters.add('|');
         splitterCharacters.add('&'); splitterCharacters.add('{');
         splitterCharacters.add('('); splitterCharacters.add(')');
-        splitterCharacters.add('\'');
+        splitterCharacters.add(':'); splitterCharacters.add('\'');
 
         twoSignTokens.add("=="); twoSignTokens.add("<=");
         twoSignTokens.add(">="); twoSignTokens.add("||");
@@ -31,6 +34,18 @@ class Lexer {
 
     Lexer(Scanner scanner) {
         this.scanner = scanner;
+    }
+
+    void createTokenList() throws UnexpectedCharException {
+        Token token = getNextToken();
+        while(token != null) {
+            tokenList.add(token);
+            token = getNextToken();
+        }
+    }
+
+    ArrayList<Token> getTokenList() {
+        return tokenList;
     }
 
     Token getNextToken() throws UnexpectedCharException {

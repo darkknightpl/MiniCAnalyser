@@ -13,6 +13,7 @@ public class UnexpectedCharException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Unexpected character. Invalid content: \'" + contentFound + "\' starting at " + position.toString();
+        return "Unexpected character. Invalid content: \'" + contentFound
+                + "\' starting at " + position.getOneBasedIndexingPosition();
     }
 }

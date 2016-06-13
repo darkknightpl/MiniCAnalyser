@@ -5,9 +5,9 @@ import com.jarzabek.minicanalyser.analyser.token.Token;
 import com.jarzabek.minicanalyser.analyser.token.TokenCategory;
 import com.jarzabek.minicanalyser.analyser.token.TokenPosition;
 import com.jarzabek.minicanalyser.analyser.token.TokenType;
-import org.junit.Ignore;
 import org.junit.Test;
 import java.io.File;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -47,6 +47,23 @@ public class LexerTest {
     };
 
     @Test
+    public void createTokenListShouldCreateCorrectTokenListIfInputIsValid() throws UnexpectedCharException {
+        File testFile = new File(getClass().getResource(testValidSourceFilename).getFile());
+        scanner.loadFile(testFile);
+        lexer.createTokenList();
+        ArrayList<Token> testTokenList = lexer.getTokenList();
+        int tokenNumber = 0;
+        Token validToken, testToken;
+        while(tokenNumber < testTokenList.size()) {
+            validToken = validTokenList[tokenNumber];
+            testToken = testTokenList.get(tokenNumber);
+            assertEquals("Test token and valid token have the same category",validToken.getCategory(),testToken.getCategory());
+            assertEquals("Test token and valid token have the same type",validToken.getType(),testToken.getType());
+            tokenNumber++;
+        }
+    }
+
+    @Test
     public void getTokenShouldReturnCorrectTokenIfInputIsValid() throws UnexpectedCharException {
         File testFile = new File(getClass().getResource(testValidSourceFilename).getFile());
         scanner.loadFile(testFile);
@@ -82,7 +99,7 @@ public class LexerTest {
 
     @Test
     public void getTokenShouldThrowExceptionIfInputIsInvalid() {
-        String expectedExceptionMessage = "Unexpected character. Invalid content: '1intblabla' starting at [0,4]";
+        String expectedExceptionMessage = "Unexpected character. Invalid content: '1intblabla' starting at [1,5]";
         File testFile = new File(getClass().getResource(testInvalidSourceFilename).getFile());
         scanner.loadFile(testFile);
         try {
@@ -90,19 +107,6 @@ public class LexerTest {
             lexer.getNextToken();
         } catch (UnexpectedCharException e) {
             assertEquals("getToken() have thrown exception with correct message",expectedExceptionMessage,e.getMessage());
-        }
-    }
-
-    @Test
-    @Ignore
-    public void shouldPrintOutTokenList() throws UnexpectedCharException {
-        File testFile = new File(getClass().getResource(testValidSourceFilename).getFile());
-        scanner.loadFile(testFile);
-        Token testToken = lexer.getNextToken();
-        while(testToken != null) {
-            System.out.println("Type: <" + testToken.getType() + "> \tCategory: <" + testToken.getCategory() +
-                    "> \tPosition: <" + testToken.getPosition() + "> \tValue: <" + testToken.getValue() + ">");
-            testToken = lexer.getNextToken();
         }
     }
 }

@@ -12,6 +12,7 @@ public enum TokenType {
     UNSIGNED("unsigned"),
     CONST("const"),
     CASE("case"),
+    DEFAULT("default"),
     ELSE("else"),
     FOR("for"),
     IF("if"),
@@ -42,17 +43,17 @@ public enum TokenType {
     RIGHT_BRACE("}"),
     LEFT_PARENTHESIS("("),
     RIGHT_PARENTHESIS(")"),
-    IDENTIFIER(""),
-    CHAR_CONSTANT(""),
-    NUMERIC_CONSTANT("");
+    IDENTIFIER("identifier_type"),
+    CHAR_CONSTANT("char_const_type"),
+    NUMERIC_CONSTANT("numeric_const_type");
 
-    private String type;
+    private String value;
 
-    TokenType(String type) {
-        this.type = type;
+    TokenType(String value) {
+        this.value = value;
     }
 
-    public String getType() {
-        return type;
+    public String getValue() {
+        return value;
     }
 }
